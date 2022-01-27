@@ -1,6 +1,6 @@
 # Variable
 
-Student_name="chisty"
+Student_name="syed"
 
 echo Student name is $Student_name
 
