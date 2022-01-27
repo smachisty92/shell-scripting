@@ -9,7 +9,7 @@ echo Hello World
   # -e option to enable esc sequence \e
   # \e - to enable color
   # [COLm - COL is color number
-  # \e[0m - Disbale the color
+  # \e[0m - Disable the color
 
 # COl Name        Col Code
 # RED             31
