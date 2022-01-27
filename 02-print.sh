@@ -20,3 +20,11 @@ echo Hello World
 # Cyan            36
 
 echo -e "\e[31mRED\e[32mGREEN\e[33mYELLOW\e[34mBLUE\e[35mMAGENTA\e[36mCYAN\e[0m"
+
+# Same color can be printed bold
+# 1; is like bold
+# $4; is underline
+
+echo -e "\e[1;31mRED\e[1;32mGREEN\e[1;33mYELLOW\e[1;34mBLUE\e[1;35mMAGENTA\e[1;36mCYAN\e[0m"
+
+echo -e "\e[4;31mRED\e[4;32mGREEN\e[4;33mYELLOW\e[4;34mBLUE\e[4;35mMAGENTA\e[4;36mCYAN\e[0m"
