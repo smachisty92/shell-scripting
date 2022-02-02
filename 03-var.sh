@@ -15,3 +15,9 @@ echo Good Morning, Today date is $Date
 
 DATE=$(date +%F)
 echo Good Morning, Today date is $Date
+
+
+#Arthimatic subsitution
+
+Expr1=$((1+1+10-2/2))
+echo Expression is = $Expr1
