@@ -10,3 +10,7 @@ fi
 
 
 # string
+
+if [ $a != "abc" ]; then
+    echo NOTOK
+fi
