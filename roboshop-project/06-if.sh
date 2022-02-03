@@ -7,3 +7,6 @@ if [ $a = "abc" ]
 then
   echo OK
 fi
+
+
+# string
