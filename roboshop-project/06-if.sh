@@ -16,6 +16,6 @@ if [ $a != "abc" ]; then
 fi
 
 
-if [ -z "$b" ]; then
-    echo b is empty
+if [ -z "$c" ]; then
+    echo c is empty
 fi
