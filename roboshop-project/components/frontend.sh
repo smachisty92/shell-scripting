@@ -36,5 +36,5 @@
 #
 #```
 
-
+echo "InstallingNGINX"
 yum install nginx -y
