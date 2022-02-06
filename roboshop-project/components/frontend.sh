@@ -37,4 +37,4 @@
 #```
 
 
-yum install ngnix -y
+yum install nginx -y
