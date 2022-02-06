@@ -56,3 +56,5 @@ rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
 echo "Extract Frontend Contenct"
 cd /usr/share/nginx/html/
 unzip /tmp/frontend.zip &>>$LOG_FILE
+
+#leave
