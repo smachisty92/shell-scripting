@@ -52,3 +52,11 @@ curl -s -o /etc/yum.repos.d/mongodb.repo https://raw.githubusercontent.com/robos
 
 echo " Install Mongo"
 yum install -y mongodb-org &>>$LOG_FILE
+
+#now  we are changing the IP address from 127.0.0.1 to 0.0.0.0 in config file
+echo "update binIP address in config file"
+sed -i -e 's/127.0.0.1/0.0.0.0' /etc/mongod.conf &>>$LOG_FILE
+
+echo "Start Database"
+systemctl enable mongod &>>$LOG_FILE
+systemctl start mongod &>>$LOG_FILE
