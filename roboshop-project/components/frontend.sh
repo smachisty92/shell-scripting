@@ -54,8 +54,8 @@ echo "Clean old Content"
 rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
 
 echo "Extract Frontend Contenct"
-cd /usr/share/nginx/html/
-unzip /tmp/frontend.zip &>>$LOG_FILE
+cd /tmp
+unzip -o /tmp/frontend.zip &>>$LOG_FILE
 
 #after unzipping the file to tpm/frontend folder, we need to move it our folder
 echo "Copy Extracted contenct to Nginx path"
