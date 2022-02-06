@@ -36,8 +36,23 @@
 #
 #```
 
+# we are removing the log file of every action
+LOG_FILE=/tmp/roboshop.log
+rm -f $LOG_FILE
+
+
 echo "InstallingNGINX"
-yum install nginx -y >>/tmp/roboshop.log
+yum install nginx -y >>$LOG_FILE
+
+
+# >> is used to append the files or override the files
 
 echo "Downloading fromtend content"
-curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip" >>/tmp/roboshop.log
+curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip" &>>$LOG_FILE
+
+echo "Clean old Content"
+rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
+
+echo "Extract Frontend Contenct"
+cd /usr/share/nginx/html/
+unzip /tmp/frontend.zip &>>$LOG_FILE
