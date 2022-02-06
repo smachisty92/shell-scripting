@@ -67,9 +67,9 @@ unzip -o /tmp/catalogue.zip &>>$LOG_FILE
 #echo "clean Old Catalogue"
 #rm -rf /home/roboshop/catalogue
 
-#echo "moving catalogue content"
-#mv catalogue-main catalogue
-#cd /home/roboshop/catalogue &>>$LOG_FILE
+echo "moving catalogue content"
+mv catalogue-main catalogue
+cd /home/roboshop/catalogue &>>$LOG_FILE
 #
 #echo "Install NodeJS Dependencies"
 #cd /home/roboshop/catalogue
