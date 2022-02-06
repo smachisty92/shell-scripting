@@ -61,14 +61,15 @@ echo "Download Catalog code"
 curl -s -L -o /tmp/catalogue.zip "https://github.com/roboshop-devops-project/catalogue/archive/main.zip" &>>$LOG_FILE
 
 echo "Extract Catalogue code"
-cd /tmp/
-unzip -o catalogue.zip &>>$LOG_FILE
+#cd /tmp/
+unzip -o /tmp/catalogue.zip &>>$LOG_FILE
 
-echo "clean Old Catalogue"
-rm -rf /home/roboshop/catalogue
+#echo "clean Old Catalogue"
+#rm -rf /home/roboshop/catalogue
 
-echo "Copy catalogue content"
-cp -r catalogue-main /home/roboshop/catalogue &>>$LOG_FILE
+echo "moving catalogue content"
+mv -r catalogue-main catalogue
+cd /home/roboshop/catalogue &>>$LOG_FILE
 
 echo "Install NodeJS Dependencies"
 cd /home/roboshop/catalogue
