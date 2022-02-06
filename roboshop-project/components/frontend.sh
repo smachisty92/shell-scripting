@@ -59,12 +59,12 @@ unzip /tmp/frontend.zip &>>$LOG_FILE
 
 #after unzipping the file to tpm/frontend folder, we need to move it our folder
 echo "Copy Extracted contenct to Nginx path"
-cp -r frontend-main/static/* /usr/share/nginx/html/ &>$LOG_FILE
+cp -r frontend-main/static/* /usr/share/nginx/html/ &>>$LOG_FILE
 
 echo "Copy Nginx RoboShop Config"
-cp frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf
+cp frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf &>>$LOG_FILE
 
 echo "Start Ngixn Service"
-systemctl enable nginx &>$LOG_FILE
-systemctl start nginx &>$LOG_FILE
+systemctl enable nginx &>>$LOG_FILE
+systemctl start nginx &>>$LOG_FILE
 
