@@ -20,9 +20,13 @@ echo "Extract Catalogue code"
 cd /tmp/
 unzip -o catalogue.zip &>>$LOG_FILE
 
+echo "clear old catalogue"
+rm -rf /home/roboshop/catalogue
+
 echo "moving catalogue content"
 cp -r catalogue-main /home/roboshop/catalogue &>>$LOG_FILE
 #
 echo "Install NodeJS Dependencies"
 cd /home/roboshop/catalogue
 npm install &>>$LOG_FILE
+
