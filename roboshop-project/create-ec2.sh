@@ -10,5 +10,5 @@ fi
 
 # if we want to run a instance
 
-aws ec2 run-instance --image-id ${AMI_ID} --instance-type t3.micro --output text
+aws ec2 run-instances --image-id ${AMI_ID} --instance-type t3.micro --output text
 
