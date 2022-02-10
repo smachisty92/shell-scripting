@@ -5,5 +5,5 @@ AMI_ID=$( aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Pr
 if [ -z "${AMI_ID}" ]; then
   echo "Unanble to find Image AMI_ID"
 else
-  AMI ID = ${AMI_ID}
+  echo AMI ID = ${AMI_ID}
 fi
