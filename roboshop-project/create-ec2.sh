@@ -1,5 +1,8 @@
 #!/bin/bash
 
+LOG=/tmp/instance-create.log
+rm -f $LOG
+
 INSTANCE_NAME=$1
 if [ -z "${INSTANCE_NAME}" ]; then
   echo -e "\e[1;33mInstacne name argument is needed\e[0m"
@@ -27,7 +30,8 @@ if [ -z "${PRIVATE_IP}" ]; then
     echo -e "Security group allports-open does not exist"
     exit
   fi
-  aws ec2 run-instances --image-id ${AMI_ID} --instance-type t3.micro --output text --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${INSTANCE_ID}}]" "ResourceType=spot-instances-request, Tags=[{Key=Name,Value=${INSTANCE_NAME}}]" --instance-market-options "MarketType=spot,SpotOptions={InstanceInterruptionBehavior=stop,SpotInstanceType=persistent}" --security-group-ids "${SG_ID}"
+  aws ec2 run-instances --image-id ${AMI_ID} --instance-type t3.micro --output text --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${INSTANCE_ID}}]" "ResourceType=spot-instances-request, Tags=[{Key=Name,Value=${INSTANCE_NAME}}]" --instance-market-options "MarketType=spot,SpotOptions={InstanceInterruptionBehavior=stop,SpotInstanceType=persistent}" --security-group-ids "${SG_ID}" &>>$LOG
+  echo -e "\e[1m Instance Created\e[0m"
 else
   echo "Instance ${INSTANCE_NAME} is already exits, Henace not creating"
 fi
@@ -46,3 +50,8 @@ echo '{
                                  "ResourceRecords": [{ "Value": "IPADDRESS"}]
 }}]
 }' | sed -e "s/DNSNAME/${INSTANCE_NAME}/" -e "s/IPADDRESS/${IPADDRESS}/" >/tmp/record.json
+
+ZONE_ID = $( aws route53 list-hosted-zones --query "HostedZones[*].{name:Name,ID:Id}" --output text | grep roboshop | awk '{print $1}' | awk -F / '{print $3}')
+aws route53 change-resource-record-sets --hosted-zone-id ${ZONE_ID} --change-batch file:///tmp/record.json --output text &>>$LOG
+
+  echo -e "\e[1m DNS Record created\e[0m"
