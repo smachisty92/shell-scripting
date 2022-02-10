@@ -22,7 +22,7 @@ PRIVATE_IP=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${INSTANC
 
 # if we want to run a instance and create if its not there with spot isntance
 if [ -z "${PRIVATE_IP}" ]; then
-  SG_ID=$(aws ec2 describe-security-group --filters Name=group-name,Values=allports-open --query "SecurityGroups[*].GroupId" --output text)
+  SG_ID=$(aws ec2 describe-security-groups --filters Name=group-name,Values=allports-open --query "SecurityGroups[*].GroupId" --output text)
   if [ -z "${SG_ID}" ]; then
     echo -e "Security group allports-open does not exist"
     exit
