@@ -8,7 +8,12 @@
 SAMPLE() {
   echo "Welcome to DevOps Training"
 }
-
+## Main Program
 # Call the function
-
 SAMPLE
+
+SAMPLE1() {
+  echo First Argument in Function = $1
+}
+echo First Argrument in Function = $1
+SAMPLE1
