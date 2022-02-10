@@ -15,5 +15,5 @@ SAMPLE
 SAMPLE1() {
   echo First Argument in Function = $1
 }
-echo First Argrument in Function = $1
+echo First Argrument in Main Function = $1
 SAMPLE1
