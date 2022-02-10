@@ -1,7 +1,7 @@
 #!/bin/bash
 
-INSTANCE_ID=$1
-if [ -z "${INSTANCE_ID}" ]; then
+INSTANCE_NAME=$1
+if [ -z "${INSTANCE_NAME}" ]; then
   echo -e "\e[1;33mInstacne name argument is needed\e[0m"
   exit
 fi
@@ -17,7 +17,7 @@ else
   echo AMI ID = ${AMI_ID}
 fi
 
-PRIVATE_IP=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${INSTANCE_ID} --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text)
+PRIVATE_IP=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${INSTANCE_NAME} --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text)
 
 
 # if we want to run a instance and create if its not there with spot isntance
@@ -27,8 +27,22 @@ if [ -z "${PRIVATE_IP}" ]; then
     echo -e "Security group allports-open does not exist"
     exit
   fi
-  aws ec2 run-instances --image-id ${AMI_ID} --instance-type t3.micro --output text --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${INSTANCE_ID}}]" "ResourceType=spot-instances-request, Tags=[{Key=Name,Value=${INSTANCE_ID}}]" --instance-market-options "MarketType=spot,SpotOptions={InstanceInterruptionBehavior=stop,SpotInstanceType=persistent}" --security-group-ids "${SG_ID}"
+  aws ec2 run-instances --image-id ${AMI_ID} --instance-type t3.micro --output text --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${INSTANCE_ID}}]" "ResourceType=spot-instances-request, Tags=[{Key=Name,Value=${INSTANCE_NAME}}]" --instance-market-options "MarketType=spot,SpotOptions={InstanceInterruptionBehavior=stop,SpotInstanceType=persistent}" --security-group-ids "${SG_ID}"
 else
-  echo "Instanc ${INSTANCE_ID} is already exits, Henace not creating"
+  echo "Instance ${INSTANCE_NAME} is already exits, Henace not creating"
 fi
 
+IPADDRESS=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${INSTANCE_NAME} --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text)
+
+
+echo '{
+            "Comment": "CREATE/DELETE/UPSERT a record ",
+            "Changes": [{
+            "Action": "CREATE",
+                        "ResourceRecordSet": {
+                                    "Name": "DNSNAME",
+                                    "Type": "A",
+                                    "TTL": 300,
+                                 "ResourceRecords": [{ "Value": "IPADDRESS"}]
+}}]
+}' | sed -e "s/DNSNAME/${INSTANCE_NAME}/" -e "s/IPADDRESS/${IPADDRESS}/" >/tmp/record.json
