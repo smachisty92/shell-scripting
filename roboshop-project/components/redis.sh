@@ -5,11 +5,11 @@ echo Installing redis
 source components/common.sh
 
 echo "Configuring Redis rpeo"
-curl -L https://raw.githubusercontent.com/roboshop-devops-project/redis/main/redis.repo -o /etc/yum.repos.d/redis.repo &>>$LOG_FIle
+curl -L https://raw.githubusercontent.com/roboshop-devops-project/redis/main/redis.repo -o /etc/yum.repos.d/redis.repo &>>$LOG_FILE
 STAT $?
 
 echo "Install Redis"
-yum install redis -y &>>$LOG_FIle
+yum install redis -y &>>$LOG_FILE
 STAT $?
 
 echo "update redis configuration"
@@ -21,6 +21,6 @@ fi
 STAT $?
 
 echo "Start Redis"
-systemctl enable redis &>>LOG_FIle
-systemctl start redis &>>LOG_FIle
+systemctl enable redis &>>$LOG_FILE
+systemctl start redis &>>$LOG_FILE
 STAT $?
