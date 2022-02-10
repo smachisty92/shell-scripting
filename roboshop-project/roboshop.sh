@@ -3,7 +3,7 @@
 ID=$(id -u)
 if [ $ID -ne 0 ]; then
   echo -e "\e[1;31m you should be root user to execute this script...\e[0m"
-  exit
+  exit 1
 fi
 
 
@@ -12,4 +12,5 @@ if [ -f components/$1.sh ]; then
 else
   echo "wrong input"
   echo "Available Inputs - frontend|mongobb|cart|catalogue|commom|dispatch|mysql|payment|rabbitmq|redis|shipping|user"
+  exit 1
 fi
