@@ -1,5 +1,13 @@
 #!/bin/bash
 
+INSTANCE_ID=$1
+if [ -z "${INSTANCE_ID}" ]; then
+  echo -e "\e[1;33mInstacne name argument is needed\e[0m"
+  exit
+fi
+
+
+
 AMI_ID=$(aws ec2 describe-images --filters "Name=name,Values=Centos-7-DevOps-Practice" --query 'Images[*].[ImageId]' --output text)
 
 if [ -z "${AMI_ID}" ]; then
