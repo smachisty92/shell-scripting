@@ -17,7 +17,7 @@ else
   echo AMI ID = ${AMI_ID}
 fi
 
-PRIVATE_IP=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${INSTANCE_ID}) --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text
+PRIVATE_IP=$(aws ec2 describe-instances --filters Name=tag:Name,Values=${INSTANCE_ID} --query 'Reservations[*].Instances[*].PrivateIpAddress' --output text)
 
 
 # if we want to run a instance
