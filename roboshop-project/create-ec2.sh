@@ -19,5 +19,6 @@ fi
 
 # if we want to run a instance
 
-aws ec2 run-instances --image-id ${AMI_ID} --instance-type t3.micro --output text --tag-specifications "ResourceType=instance,Tags=[{key=Name,Value=${INSTANCE_ID}}]"
+aws ec2 run-instances --image-id ${AMI_ID} --instance-type t3.micro --output text --tag-specifications "ResourceType=instance,Tags=[{Key=Name,Value=${INSTANCE_ID}}]"
 
+echo "created"
