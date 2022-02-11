@@ -1,32 +1,23 @@
-#The frontend is the service in RobotShop to serve the web content over Nginx.
-
-# we are removing the log file of every action
 source components/common.sh
 
-
-echo "InstallingNGINX"
-yum install nginx -y >>$LOG_FILE
+echo "Installing NGINX"
+yum install nginx -y &>>$LOG_FILE
 STAT $?
 
-
-# >> is used to append the files or override the files
-
-echo "Downloading fromtend content"
+echo "Download Frontend Content"
 curl -s -L -o /tmp/frontend.zip "https://github.com/roboshop-devops-project/frontend/archive/main.zip" &>>$LOG_FILE
 STAT $?
 
-
-echo "Clean old Content"
-rm -rf /usr/share/nginx/html/* &>>$LOG_FILE
+echo "Clean Old Content"
+rm -rf /usr/share/nginx/html/*  &>>$LOG_FILE
 STAT $?
 
-echo "Extract Frontend Contenct"
+echo "Extract Frontend Content"
 cd /tmp
-unzip -o /tmp/frontend.zip &>>$LOG_FILE
+unzip -o frontend.zip &>>$LOG_FILE
 STAT $?
 
-#after unzipping the file to tpm/frontend folder, we need to move it our folder
-echo "Copy Extracted contenct to Nginx path"
+echo "Copy Extracted Content to Nginx Path"
 cp -r frontend-main/static/* /usr/share/nginx/html/ &>>$LOG_FILE
 STAT $?
 
@@ -34,12 +25,11 @@ echo "Copy Nginx RoboShop Config"
 cp frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf &>>$LOG_FILE
 STAT $?
 
-echo "update Roboshop Config"
-sed -i -e "/catalogue/ s/localhost/catalogue.roboshop.internal/" -e '/user/ s/localhost/user.roboshop.internal/' /etc/nginx/default.d/roboshop.conf
+echo "Update RoboShop Config"
+sed -i -e "/catalogue/ s/localhost/catalogue.roboshop.internal/" -e '/user/ s/localhost/user.roboshop.internal/' -e '/cart/ s/localhost/cart.roboshop.internal/' -e '/shipping/ s/localhost/shipping.roboshop.internal/' -e '/payment/ s/localhost/payment.roboshop.internal/' /etc/nginx/default.d/roboshop.conf
 STAT $?
 
-echo "Start Ngixn Service"
+echo "Start Nginx Service"
 systemctl enable nginx &>>$LOG_FILE
-systemctl start nginx &>>$LOG_FILE
+systemctl restart nginx  &>>$LOG_FILE
 STAT $?
-

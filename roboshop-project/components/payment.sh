@@ -1,1 +1,3 @@
-echo Installing payment
+source components/common.sh
+
+PYTHON payment
