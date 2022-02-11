@@ -43,7 +43,7 @@ NODEJS() {
   STAT $?
 
   echo "moving ${COMPONENT} content"
-  cp -r ${COMPONENT}-main /home/roboshop/${COMPONENT} &>>$LOG_FILE
+  mv -r ${COMPONENT}-main /home/roboshop/${COMPONENT} &>>$LOG_FILE
   STAT $?
 
   echo "Install NodeJS Dependencies"
