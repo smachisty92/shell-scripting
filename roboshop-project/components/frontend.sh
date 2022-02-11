@@ -34,8 +34,8 @@ echo "Copy Nginx RoboShop Config"
 cp frontend-main/localhost.conf /etc/nginx/default.d/roboshop.conf &>>$LOG_FILE
 STAT $?
 
-echo "update Roboshop Config"
-sed -i -e "/catalogue/ s/localhost/catalogue.roboshop.internal/" -e '/user/ s/localhost/user.roboshop.internal/' /etc/nginx/default.d/roboshop.conf
+#echo "update Roboshop Config"
+#sed -i -e "/catalogue/ s/localhost/catalogue.roboshop.internal/" -e '/user/ s/localhost/user.roboshop.internal/' /etc/nginx/default.d/roboshop.conf
 
 echo "Start Ngixn Service"
 systemctl enable nginx &>>$LOG_FILE
